@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\UserType;
+use App\Traits\HasNoPersonalTeam;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +18,10 @@ class User extends Authenticatable
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
-    use HasTeams;
+    use HasNoPersonalTeam, HasTeams {
+        HasNoPersonalTeam::ownsTeam insteadof HasTeams;
+        HasNoPersonalTeam::isCurrentTeam insteadof HasTeams;
+    }
     use Notifiable;
     use TwoFactorAuthenticatable;
 
@@ -48,6 +53,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'type' => UserType::class
     ];
 
     /**
@@ -58,4 +64,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function authenticatable() {
+        return $this->morphTo();
+    }
 }

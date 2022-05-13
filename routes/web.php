@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,12 +26,15 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'team'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::as('dashboard.')->group(function () {
+        Route::resource('student', StudentController::class);
+        Route::post('student/import', [StudentController::class, 'import'])->name('student.import');
+        Route::resource('staff', StaffController::class);
+        Route::post('staff/import', [StaffController::class, 'import'])->name('staff.import');
+    });
 });
