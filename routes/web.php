@@ -38,3 +38,5 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('staff/import', [StaffController::class, 'import'])->name('staff.import');
     });
 });
+
+require(__DIR__ . './jetstream.php');

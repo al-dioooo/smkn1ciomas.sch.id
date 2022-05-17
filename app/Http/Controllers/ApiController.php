@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\StudentMajor;
+use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller

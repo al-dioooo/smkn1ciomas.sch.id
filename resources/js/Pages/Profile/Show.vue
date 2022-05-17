@@ -43,41 +43,41 @@
                 </div>
 
                 <div v-if="$page.props.user.authenticatable_type === 'App\\Models\\Student'">
-                    <StudentAddressForm :student="$page.props.user" class="mt-10 sm:mt-0" />
+                    <StudentAddressForm :student="$page.props.detail" class="mt-10 sm:mt-0" />
 
                     <JetSectionBorder />
 
-                    <StudentParentForm :student="$page.props.user" class="mt-10 sm:mt-0" />
+                    <StudentParentForm :student="$page.props.detail" class="mt-10 sm:mt-0" />
 
                     <JetSectionBorder />
 
-                    <StudentRegistrationForm :student="$page.props.user" class="mt-10 sm:mt-0" />
+                    <StudentRegistrationForm :student="$page.props.detail" class="mt-10 sm:mt-0" />
 
                     <JetSectionBorder />
                 </div>
 
                 <div v-if="$page.props.user.authenticatable_type === 'App\\Models\\Staff'">
-                    <StaffAddressForm :student="$page.props.user" class="mt-10 sm:mt-0" />
+                    <StaffAddressForm :staff="$page.props.detail" class="mt-10 sm:mt-0" />
 
                     <JetSectionBorder />
 
-                    <StaffContactForm :staff="$page.props.staff" class="mt-10 sm:mt-0" />
+                    <StaffContactForm :staff="$page.props.detail" class="mt-10 sm:mt-0" />
 
                     <JetSectionBorder />
 
-                    <StaffStaffingForm :staff="$page.props.staff" class="mt-10 sm:mt-0" />
+                    <StaffStaffingForm :staff="$page.props.detail" class="mt-10 sm:mt-0" />
 
                     <JetSectionBorder />
 
-                    <StaffFamilyForm :staff="$page.props.staff" class="mt-10 sm:mt-0" />
+                    <StaffFamilyForm :staff="$page.props.detail" class="mt-10 sm:mt-0" />
 
                     <JetSectionBorder />
 
-                    <StaffAdditionalForm :staff="$page.props.staff" class="mt-10 sm:mt-0" />
+                    <StaffAdditionalForm :staff="$page.props.detail" class="mt-10 sm:mt-0" />
 
                     <JetSectionBorder />
 
-                    <StaffOtherForm :staff="$page.props.staff" class="mt-10 sm:mt-0" />
+                    <StaffOtherForm :staff="$page.props.detail" class="mt-10 sm:mt-0" />
                 </div>
 
                 <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
