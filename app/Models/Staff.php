@@ -88,7 +88,7 @@ class Staff extends Model
         });
     }
 
-    public function getProfileCompletionProgressAttribute()
+    public function getProgressAttribute()
     {
         return count(array_filter($this->attributes));
     }

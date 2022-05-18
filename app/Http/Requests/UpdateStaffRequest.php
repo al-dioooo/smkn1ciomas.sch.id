@@ -32,6 +32,7 @@ class UpdateStaffRequest extends FormRequest
             'place_of_birth' => 'required_if:_updating,profile|string|max:255',
             'date_of_birth' => 'required_if:_updating,profile|date',
             'religion' => 'required_if:_updating,profile|string',
+            'phone' => 'required_if:_updating,contact|string|max:14',
         ];
     }
 }

@@ -37,7 +37,7 @@ class Student extends Model
         'parent_place_of_birth',
         'parent_date_of_birth',
         'parent_education',
-        'parent_proffession',
+        'parent_profession',
         'parent_income',
         'parent_liabilities',
         'parent_phone',
@@ -82,7 +82,7 @@ class Student extends Model
         });
     }
 
-    public function getProfileCompletionProgressAttribute()
+    public function getProgressAttribute()
     {
         return count(array_filter($this->attributes));
     }

@@ -19,8 +19,6 @@ class StaffImport implements OnEachRow, WithHeadingRow
 
         $staff = Staff::firstOrCreate([
             'nik' => $row['nik'],
-            'nip' => $row['nip'],
-            'nuptk' => $row['nuptk'],
         ]);
 
         $staff->auth()->create([

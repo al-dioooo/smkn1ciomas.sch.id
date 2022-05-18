@@ -78,6 +78,8 @@
                     <JetSectionBorder />
 
                     <StaffOtherForm :staff="$page.props.detail" class="mt-10 sm:mt-0" />
+
+                    <JetSectionBorder />
                 </div>
 
                 <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
