@@ -19,13 +19,15 @@
 
     const form = useForm({
         _method: "POST",
-        _updating: "address",
-        address: props.staff?.address,
-        district: props.staff?.district,
+        _updating: "address information",
+        province: props.staff?.province,
         city: props.staff?.city,
+        district: props.staff?.district,
+        rural: props.staff?.rural,
+        hamlet: props.staff?.hamlet,
         neighbourhood: props.staff?.neighbourhood,
-        status_of_residence: props.staff?.status_of_residence,
-        live_with: props.staff?.live_with
+        post_code: props.staff?.post_code,
+        address: props.staff?.address
     })
 
     const updateStaffInformation = () => {
@@ -35,20 +37,32 @@
         })
     }
 
+    const provinces = ref(null)
     const cities = ref(null)
     const districts = ref(null)
+    const rurals = ref(null)
 
     onMounted(() => {
+        getProvinces()
         getCities()
         getDistricts()
+        getRurals()
     })
 
+    const getProvinces = () => {
+        axios.get('http://dev.farizdotid.com/api/daerahindonesia/provinsi').then((response) => provinces.value = response.data.provinsi)
+    }
+
     const getCities = () => {
-        axios.get('http://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=32').then((response) => cities.value = response.data.kota_kabupaten)
+        axios.get(`http://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${form.province}`).then((response) => cities.value = response.data.kota_kabupaten)
     }
 
     const getDistricts = () => {
         axios.get(`http://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${form.city}`).then((response) => districts.value = response.data.kecamatan)
+    }
+
+    const getRurals = () => {
+        axios.get(`http://dev.farizdotid.com/api/daerahindonesia/kelurahan?id_kecamatan=${form.district}`).then((response) => rurals.value = response.data.kelurahan)
     }
 </script>
 
@@ -56,48 +70,24 @@
     <JetFormSection @submitted="updateStaffInformation">
         <template #title>Address Information</template>
 
-        <template #description>Staff's address information.</template>
+        <template #description>{{ staff?.auth_data.id === $page.props.user.id ? "Your" : "Staff's" }} address information.</template>
 
         <template #form>
-            <!-- Neighbourhood -->
+            <!-- Province -->
             <div class="col-span-6 sm:col-span-3">
-                <JetLabel for="neighbourhood" value="Neighbourhood" />
-                <JetInput id="neighbourhood" v-model="form.neighbourhood" :isError="form.errors.neighbourhood" type="text" class="block w-full mt-1" autocomplete="neighbourhood" />
-                <JetInputError :message="form.errors.neighbourhood" class="mt-2" />
-            </div>
-
-            <!-- Hamlet -->
-            <div class="col-span-6 sm:col-span-3">
-                <JetLabel for="hamlet" value="Hamlet" />
-                <JetInput id="hamlet" v-model="form.hamlet" :isError="form.errors.hamlet" type="text" class="block w-full mt-1" autocomplete="hamlet" />
-                <JetInputError :message="form.errors.hamlet" class="mt-2" />
-            </div>
-
-            <!-- Village -->
-            <div class="col-span-6 sm:col-span-3">
-                <JetLabel for="village" value="Village" />
-                <JetInput id="village" v-model="form.village" :isError="form.errors.village" type="text" class="block w-full mt-1" autocomplete="village" />
-                <JetInputError :message="form.errors.village" class="mt-2" />
-            </div>
-
-            <!-- Urban Village -->
-            <div class="col-span-6 sm:col-span-3">
-                <JetLabel for="urban_village" value="Urban Village" />
-                <JetInput id="urban_village" v-model="form.urban_village" :isError="form.errors.urban_village" type="text" class="block w-full mt-1" autocomplete="urban_village" />
-                <JetInputError :message="form.errors.urban_village" class="mt-2" />
-            </div>
-
-            <!-- Sub District -->
-            <div class="col-span-6 sm:col-span-3">
-                <JetLabel for="sub_district" value="Sub District" />
-                <JetInput id="sub_district" v-model="form.sub_district" :isError="form.errors.sub_district" type="text" class="block w-full mt-1" autocomplete="sub_district" />
-                <JetInputError :message="form.errors.sub_district" class="mt-2" />
+                <JetLabel for="province" value="Province" />
+                <FormSelect @input="getCities" class="block w-full mt-1" name="province" id="province" v-model="form.province" :isError="form.errors.province">
+                    <template v-for="row in provinces" :key="row.id">
+                        <option :value="row.id">{{ row.nama }}</option>
+                    </template>
+                </FormSelect>
+                <JetInputError :message="form.errors.province" class="mt-2" />
             </div>
 
             <!-- City -->
             <div class="col-span-6 sm:col-span-3">
                 <JetLabel for="city" value="City" />
-                <FormSelect @input="getDistricts" class="block w-full mt-1" name="city" id="city" v-model="form.city" :isError="form.errors.city">
+                <FormSelect @input="getDistricts" :disabled="cities == null || cities.length == 0" class="block w-full mt-1" name="city" id="city" v-model="form.city" :isError="form.errors.city">
                     <template v-for="row in cities" :key="row.id">
                         <option :value="row.id">{{ row.nama }}</option>
                     </template>
@@ -106,9 +96,9 @@
             </div>
 
             <!-- District -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-4 sm:col-span-2">
                 <JetLabel for="district" value="District" />
-                <FormSelect :disabled="districts == null || districts.length == 0" class="block w-full mt-1" name="district" id="district" v-model="form.district" :isError="form.errors.district">
+                <FormSelect @input="getRurals" :disabled="districts == null || districts.length == 0" class="block w-full mt-1" name="district" id="district" v-model="form.district" :isError="form.errors.district">
                     <template v-for="row in districts" :key="row.id">
                         <option :value="row.id">{{ row.nama }}</option>
                     </template>
@@ -116,25 +106,43 @@
                 <JetInputError :message="form.errors.district" class="mt-2" />
             </div>
 
+            <!-- Rural -->
+            <div class="col-span-4 sm:col-span-2">
+                <JetLabel for="rural" value="Rural" />
+                <FormSelect :disabled="rurals == null || rurals.length == 0" class="block w-full mt-1" name="rural" id="rural" v-model="form.rural" :isError="form.errors.rural">
+                    <template v-for="row in rurals" :key="row.id">
+                        <option :value="row.id">{{ row.nama }}</option>
+                    </template>
+                </FormSelect>
+                <JetInputError :message="form.errors.rural" class="mt-2" />
+            </div>
+
+            <!-- Neighbourhood -->
+            <div class="col-span-3 sm:col-span-1">
+                <JetLabel for="neighbourhood" value="Neighbourhood" />
+                <JetInput id="neighbourhood" v-model="form.neighbourhood" :isError="form.errors.neighbourhood" type="number" class="block w-full mt-1" autocomplete="neighbourhood" />
+                <JetInputError :message="form.errors.neighbourhood" class="mt-2" />
+            </div>
+
+            <!-- Hamlet -->
+            <div class="col-span-3 sm:col-span-1">
+                <JetLabel for="hamlet" value="Hamlet" />
+                <JetInput id="hamlet" v-model="form.hamlet" :isError="form.errors.hamlet" type="number" class="block w-full mt-1" autocomplete="hamlet" />
+                <JetInputError :message="form.errors.hamlet" class="mt-2" />
+            </div>
+
+            <!-- Post Code -->
+            <div class="col-span-3 sm:col-span-1">
+                <JetLabel for="post_code" value="Post Code" />
+                <JetInput id="post_code" v-model="form.post_code" :isError="form.errors.post_code" type="number" class="block w-full mt-1" autocomplete="post_code" />
+                <JetInputError :message="form.errors.post_code" class="mt-2" />
+            </div>
+
             <!-- Address -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6">
                 <JetLabel for="address" value="Address" />
                 <FormTextarea id="address" v-model="form.address" :isError="form.errors.address" class="block w-full mt-1"></FormTextarea>
                 <JetInputError :message="form.errors.address" class="mt-2" />
-            </div>
-
-            <!-- Status of Residence -->
-            <div class="col-span-6 sm:col-span-3">
-                <JetLabel for="status_of_residence" value="Status of Residence" />
-                <JetInput id="status_of_residence" v-model="form.status_of_residence" :isError="form.errors.status_of_residence" type="text" class="block w-full mt-1" autocomplete="status_of_residence" />
-                <JetInputError :message="form.errors.status_of_residence" class="mt-2" />
-            </div>
-
-            <!-- Live with -->
-            <div class="col-span-6 sm:col-span-3">
-                <JetLabel for="live_with" value="Live with" />
-                <JetInput id="live_with" v-model="form.live_with" :isError="form.errors.live_with" type="text" class="block w-full mt-1" autocomplete="live_with" />
-                <JetInputError :message="form.errors.live_with" class="mt-2" />
             </div>
         </template>
 

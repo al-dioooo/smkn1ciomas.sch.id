@@ -52,7 +52,6 @@
         form.post(route('dashboard.staff.import'), {
             errorBag: "importStaff",
             preserveScroll: true,
-            forceFormData: true,
             onFinish: () => {
                 form.reset()
                 file.value = null

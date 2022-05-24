@@ -37,7 +37,7 @@
     <JetFormSection @submitted="updateStaffInformation">
         <template #title>Contact Information</template>
 
-        <template #description>Staff's contact information.</template>
+        <template #description>{{ staff?.auth_data.id === $page.props.user.id ? "Your" : "Staff's" }} contact information.</template>
 
         <template #form>
             <!-- Phone -->

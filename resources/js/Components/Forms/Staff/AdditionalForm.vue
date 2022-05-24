@@ -18,9 +18,15 @@
 
     const form = useForm({
         _method: "POST",
-        _updating: "additional",
-        name: props.staff?.auth_data.name
+        _updating: "additional information",
+        npwp: props.staff?.npwp,
+        tax_payer_name: props.staff?.tax_payer_name,
+        nationality: props.staff?.nationality,
+        bank_name: props.staff?.bank_name,
+        bank_account_number: props.staff?.bank_account_number,
+        bank_account_name: props.staff?.bank_account_name,
     })
+
     const updateStaffInformation = () => {
         form.put(route("dashboard.staff.update", props.staff), {
             errorBag: "updateStaffInformation",
@@ -30,14 +36,14 @@
 </script>
 
 <template>
-    <JetFormSection @submitted="submitHandler">
+    <JetFormSection @submitted="updateStaffInformation">
         <template #title>Additional Information</template>
 
         <template #description>{{ staff?.auth_data.id === $page.props.user.id ? "Your" : "Staff's" }} additional information.</template>
 
         <template #form>
             <!-- NPWP -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-2">
                 <JetLabel for="npwp" value="NPWP" />
                 <JetInput id="npwp" v-model="form.npwp" :isError="form.errors.npwp" type="text" class="block w-full mt-1" autocomplete="npwp" />
                 <JetInputError :message="form.errors.npwp" class="mt-2" />
@@ -51,28 +57,31 @@
             </div>
 
             <!-- Nationality -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-1">
                 <JetLabel for="nationality" value="Nationality" />
-                <JetInput id="nationality" v-model="form.nationality" :isError="form.errors.nationality" type="text" class="block w-full mt-1" autocomplete="nationality" />
+                <FormSelect id="nationality" v-model="form.nationality" :isError="form.errors.nationality" class="block w-full mt-1">
+                    <option value="WNI">WNI</option>
+                    <option value="WNA">WNA</option>
+                </FormSelect>
                 <JetInputError :message="form.errors.nationality" class="mt-2" />
             </div>
 
             <!-- Bank Name -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-2">
                 <JetLabel for="bank_name" value="Bank Name" />
                 <JetInput id="bank_name" v-model="form.bank_name" :isError="form.errors.bank_name" type="text" class="block w-full mt-1" autocomplete="bank_name" />
                 <JetInputError :message="form.errors.bank_name" class="mt-2" />
             </div>
 
             <!-- Bank Account Number -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-2">
                 <JetLabel for="bank_account_number" value="Bank Account Number" />
                 <JetInput id="bank_account_number" v-model="form.bank_account_number" :isError="form.errors.bank_account_number" type="text" class="block w-full mt-1" autocomplete="bank_account_number" />
                 <JetInputError :message="form.errors.bank_account_number" class="mt-2" />
             </div>
 
             <!-- Bank Account Name -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-2">
                 <JetLabel for="bank_account_name" value="Bank Account Name" />
                 <JetInput id="bank_account_name" v-model="form.bank_account_name" :isError="form.errors.bank_account_name" type="text" class="block w-full mt-1" autocomplete="bank_account_name" />
                 <JetInputError :message="form.errors.bank_account_name" class="mt-2" />

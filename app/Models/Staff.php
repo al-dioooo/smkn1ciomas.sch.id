@@ -11,22 +11,30 @@ class Staff extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nuptk',
-        'gender',
+        'nik',
         'place_of_birth',
         'date_of_birth',
-        'nip',
-        'status',
-        'ptk',
+        'gender',
         'religion',
+        'marrital_status',
+
         'address',
+        'province',
+        'city',
+        'district',
+        'rural',
         'neighbourhood',
         'hamlet',
-        'village',
-        'urban_village',
-        'sub_district',
         'post_code',
+        'latitude',
+        'longitude',
+
         'phone',
+
+        'nip',
+        'nuptk',
+        'employment_status',
+        'ptk',
         'additional_duty',
         'cpns_sk',
         'cpns_date',
@@ -35,26 +43,28 @@ class Staff extends Model
         'appointment_institute',
         'rank',
         'source_of_salary',
+        'pns_tmt',
+        'karpeg',
+        'pair_pns_identity_link',
+        'nuks',
+        'is_licensed_as_principal',
+        'had_supervision_training',
+
+        'family_certificate_number',
         'mother_name',
-        'marrital_status',
         'pair_name',
         'pair_nip',
         'pair_profession',
-        'is_licensed_as_principal',
-        'had_supervision_training',
-        'is_mastering_braille',
-        'is_mastering_gestural_language',
+
+        'npwp',
         'tax_payer_name',
         'nationality',
-        'bank',
-        'bank_account',
         'bank_name',
-        'nik',
-        'family_certificate_number',
-        'karpeg',
-        'latitude',
-        'longitude',
-        'nuks'
+        'bank_account_number',
+        'bank_account_name',
+
+        'is_mastering_braille',
+        'is_mastering_gestural_language'
     ];
 
     protected $appends = [
@@ -75,7 +85,8 @@ class Staff extends Model
         }
     }
 
-    public function getAuthDataAttribute() {
+    public function getAuthDataAttribute()
+    {
         return $this->auth;
     }
 
@@ -93,7 +104,8 @@ class Staff extends Model
         return count(array_filter($this->attributes));
     }
 
-    public function auth() {
+    public function auth()
+    {
         return $this->morphOne(User::class, 'authenticatable');
     }
 }

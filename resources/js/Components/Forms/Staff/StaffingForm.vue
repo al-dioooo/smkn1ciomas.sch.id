@@ -33,7 +33,7 @@
     <JetFormSection @submitted="updateStaffInformation">
         <template #title>Staffing Information</template>
 
-        <template #description>Staff's staffing information.</template>
+        <template #description>{{ staff?.auth_data.id === $page.props.user.id ? "Your" : "Staff's" }} staffing information.</template>
 
         <template #form>
             <!-- NIP -->

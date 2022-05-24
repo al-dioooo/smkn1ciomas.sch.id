@@ -21,7 +21,7 @@
 
     const form = useForm({
         _method: "POST",
-        _updating: "profile",
+        _updating: "profile information",
         name: props.staff?.auth_data.name,
         email: props.staff?.auth_data.email,
         password: null,

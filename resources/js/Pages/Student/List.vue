@@ -52,7 +52,6 @@
         form.post(route('dashboard.student.import'), {
             errorBag: "importStudent",
             preserveScroll: true,
-            forceFormData: true,
             onFinish: () => {
                 form.reset()
                 file.value = null

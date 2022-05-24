@@ -56,7 +56,7 @@
     <JetFormSection @submitted="updateStudentInformation">
         <template #title>Address Information</template>
 
-        <template #description>Student's address information.</template>
+        <template #description>{{ student?.auth_data.id === $page.props.user.id ? "Your" : "Student's" }} address information.</template>
 
         <template #form>
             <!-- City -->

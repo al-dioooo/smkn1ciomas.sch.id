@@ -84,48 +84,48 @@
 
 <template>
     <JetFormSection @submitted="submitHandler">
-        <template #title>Profile Information</template>
+        <template #title>{{ route('profile.show') && 'Additional' }} Profile Information</template>
 
-        <template #description>Student's profile information.</template>
+        <template #description>{{ student?.auth_data.id === $page.props.user.id ? "Your" : "Student's" }} {{ route('profile.show') && 'additional' }} profile information.</template>
 
         <template #form>
             <!-- Name -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-3" v-if="!route().current('profile.show')">
                 <JetLabel for="name" value="Name" />
                 <JetInput id="name" v-model="form.name" :isError="form.errors.name" type="text" class="block w-full mt-1" autocomplete="name" />
                 <JetInputError :message="form.errors.name" class="mt-2" />
             </div>
 
             <!-- Nickname -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-2">
                 <JetLabel for="nickname" value="Nickname" />
                 <JetInput id="nickname" v-model="form.nickname" :isError="form.errors.nickname" type="text" class="block w-full mt-1" autocomplete="nickname" />
                 <JetInputError :message="form.errors.nickname" class="mt-2" />
             </div>
 
             <!-- Email -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-3" v-if="!route().current('profile.show')">
                 <JetLabel for="email" value="Email" />
                 <JetInput id="email" v-model="form.email" :isError="form.errors.email" type="email" class="block w-full mt-1" autocomplete="email" />
                 <JetInputError :message="form.errors.email" class="mt-2" />
             </div>
 
             <!-- Password -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-3" v-if="!route().current('profile.show')">
                 <JetLabel for="password" value="Password" />
                 <JetInput id="password" v-model="form.password" :isError="form.errors.password" type="password" class="block w-full mt-1" autocomplete="password" />
                 <JetInputError :message="form.errors.password" class="mt-2" />
             </div>
 
             <!-- NIS -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-2">
                 <JetLabel for="nis" value="NIS" />
                 <JetInput id="nis" v-model="form.nis" :isError="form.errors.nis" type="text" class="block w-full mt-1" autocomplete="nis" />
                 <JetInputError :message="form.errors.nis" class="mt-2" />
             </div>
 
             <!-- NISN -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-2">
                 <JetLabel for="nisn" value="NISN" />
                 <JetInput id="nisn" v-model="form.nisn" :isError="form.errors.nisn" type="text" class="block w-full mt-1" autocomplete="nisn" />
                 <JetInputError :message="form.errors.nisn" class="mt-2" />
@@ -143,7 +143,7 @@
             </div>
 
             <!-- Class -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-1">
                 <JetLabel for="class" value="Class" />
                 <FormSelect :disabled="classes == null" id="class" v-model="form.class" :isError="form.errors.class" class="block w-full mt-1">
                     <template v-for="row in classes" :key="row">
@@ -155,14 +155,14 @@
 
             <template v-if="student != null">
                 <!-- Phone Number -->
-                <div class="col-span-6 sm:col-span-3">
+                <div class="col-span-6 sm:col-span-2">
                     <JetLabel for="phone" value="Phone Number" />
                     <JetInput id="phone" v-model="form.phone" type="text" class="block w-full mt-1" autocomplete="phone" />
                     <JetInputError :message="form.errors.phone" class="mt-2" />
                 </div>
 
                 <!-- Gender -->
-                <div class="col-span-6 sm:col-span-3">
+                <div class="col-span-6 sm:col-span-1">
                     <JetLabel for="gender" value="Gender" />
                     <FormSelect id="gender" v-model="form.gender" :isError="form.errors.gender" class="block w-full mt-1">
                         <option value="l">Laki-laki</option>
@@ -179,21 +179,21 @@
                 </div>
 
                 <!-- Date of Birth -->
-                <div class="col-span-6 sm:col-span-3">
+                <div class="col-span-6 sm:col-span-2">
                     <JetLabel for="date_of_birth" value="Date of Birth" />
                     <JetInput id="date_of_birth" v-model="form.date_of_birth" type="date" class="block w-full mt-1" autocomplete="date_of_birth" />
                     <JetInputError :message="form.errors.date_of_birth" class="mt-2" />
                 </div>
 
                 <!-- Religion -->
-                <div class="col-span-6 sm:col-span-3">
+                <div class="col-span-6 sm:col-span-2">
                     <JetLabel for="religion" value="Religion" />
                     <JetInput id="religion" v-model="form.religion" type="text" class="block w-full mt-1" autocomplete="religion" />
                     <JetInputError :message="form.errors.religion" class="mt-2" />
                 </div>
 
                 <!-- Nationality -->
-                <div class="col-span-6 sm:col-span-3">
+                <div class="col-span-6 sm:col-span-1">
                     <JetLabel for="nationality" value="Nationality" />
                     <FormSelect id="nationality" v-model="form.nationality" :isError="form.errors.nationality" class="block w-full mt-1">
                         <option value="WNI">WNI</option>
@@ -203,14 +203,14 @@
                 </div>
 
                 <!-- Which Child -->
-                <div class="col-span-6 sm:col-span-3">
+                <div class="col-span-6 sm:col-span-1">
                     <JetLabel for="which_child" value="Which Child" />
                     <JetInput id="which_child" v-model="form.which_child" type="number" class="block w-full mt-1" autocomplete="which_child" />
                     <JetInputError :message="form.errors.which_child" class="mt-2" />
                 </div>
 
                 <!-- Siblings -->
-                <div class="col-span-6 sm:col-span-3">
+                <div class="col-span-6 sm:col-span-1">
                     <JetLabel for="siblings" value="Siblings" />
                     <JetInput id="siblings" v-model="form.siblings" type="number" class="block w-full mt-1" autocomplete="siblings" />
                     <JetInputError :message="form.errors.siblings" class="mt-2" />

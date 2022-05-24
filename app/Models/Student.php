@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Student extends Model
 {
@@ -46,13 +47,15 @@ class Student extends Model
         'school_before',
         'school_certificate_link',
         'school_certificate_number',
-        'photo_link',
         'birth_certificate_link',
         'registration_path'
     ];
 
     protected $appends = [
-        'auth_data'
+        'auth_data',
+        'school_certificate',
+        'family_certificate',
+        'birth_certificate'
     ];
 
     public function getCreatedAtAttribute($value)
@@ -69,7 +72,8 @@ class Student extends Model
         }
     }
 
-    public function getAuthDataAttribute() {
+    public function getAuthDataAttribute()
+    {
         return $this->auth;
     }
 
@@ -87,7 +91,27 @@ class Student extends Model
         return count(array_filter($this->attributes));
     }
 
-    public function auth() {
+    public function getSchoolCertificateAttribute()
+    {
+        return $this->school_certificate_link ? Storage::disk('public')->url($this->school_certificate_link) : $this->defaultNoImageUrl();
+    }
+
+    public function getFamilyCertificateAttribute()
+    {
+        return $this->family_certificate_link ? Storage::disk('public')->url($this->family_certificate_link) : $this->defaultNoImageUrl();
+    }
+
+    public function getBirthCertificateAttribute()
+    {
+        return $this->birth_certificate_link ? Storage::disk('public')->url($this->birth_certificate_link) : $this->defaultNoImageUrl();
+    }
+
+    protected function defaultNoImageUrl() {
+        return 'https://placehold.co/525x225/EBF4FF/7F9CF5?text=Empty,%20please%20upload%20file.&font=source-sans-pro';
+    }
+
+    public function auth()
+    {
         return $this->morphOne(User::class, 'authenticatable');
     }
 }

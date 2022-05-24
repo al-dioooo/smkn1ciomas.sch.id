@@ -50,15 +50,16 @@ class UpdateStudentRequest extends FormRequest
             'parent_date_of_birth' => 'required_if:_updating,"parent information"|date',
             'parent_education' => 'required_if:_updating,"parent information"|string|max:255',
             'parent_profession' => 'required_if:_updating,"parent information"|string|max:255',
-            'parent_income' => 'required_if:_updating,"parent information"',
-            'parent_liabilities' => 'required_if:_updating,"parent information"',
-            'parent_phone' => 'required_if:_updating,"parent information"',
-            'parent_address' => 'required_if:_updating,"parent information"',
-            'school_before' => 'required_if:_updating,"registration information"',
-            'school_certificate_link' => 'required_if:_updating,"registration information"',
-            'school_certificate_number' => 'required_if:_updating,"registration information"',
-            'birth_certificate_link' => 'required_if:_updating,"registration information"',
-            'registration_path' => 'required_if:_updating,"registration information"'
+            'parent_income' => 'required_if:_updating,"parent information"|string',
+            'parent_liabilities' => 'required_if:_updating,"parent information"|string',
+            'parent_phone' => 'required_if:_updating,"parent information"|string',
+            'parent_address' => 'required_if:_updating,"parent information"|string',
+            'school_before' => 'required_if:_updating,"registration information"|string|max:255',
+            'school_certificate_number' => 'required_if:_updating,"registration information"|string|max:255',
+            'registration_path' => 'required_if:_updating,"registration information"|string|max:255',
+            'school_certificate' => 'nullable|mimes:png,jpg,webp',
+            'birth_certificate' => 'nullable|mimes:png,jpg,webp',
+            'family_certificate' => 'nullable|mimes:png,jpg,webp'
         ];
     }
 }

@@ -108,6 +108,23 @@ class StudentController extends Controller
     {
         $student->update($request->validated());
 
+        if ($request->file('school_certificate') !== null) {
+            $student->school_certificate_link = $request->file('school_certificate')->storePublicly('certificates', ['disk' => 'public']);
+        }
+
+        if ($request->file('family_certificate') !== null) {
+            $student->family_certificate_link = $request->file('family_certificate')->storePublicly('certificates', ['disk' => 'public']);
+        }
+
+        if ($request->file('birth_certificate') !== null) {
+            if (file_exists(storage_path($student->birth_certificate_link))) {
+                unlink(storage_path($student->birth_certificate_link));
+            }
+            $student->birth_certificate_link = $request->file('birth_certificate')->storePublicly('certificates', ['disk' => 'public']);
+        }
+
+        $student->save();
+
         return redirect()->back();
     }
 

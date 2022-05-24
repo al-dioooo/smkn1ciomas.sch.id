@@ -38,6 +38,6 @@ class DashboardController extends Controller
 
         $attributes = $student->getAttributes();
 
-        return ceil(($student->progress) / (count($attributes) - 3) *  100);
+        return ceil(($student->progress) / (count($attributes)) *  100);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Foundation\Application;
@@ -27,6 +28,10 @@ Route::get('/', function () {
     ]);
 });
 
+// Route::middleware('guest')->group(function () {
+//     Route::get('/', [PageController::class, 'index'])->name('index');
+// });
+
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'team'])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
@@ -35,6 +40,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('student/import', [StudentController::class, 'import'])->name('student.import');
         Route::resource('staff', StaffController::class);
         Route::post('staff/import', [StaffController::class, 'import'])->name('staff.import');
+
+        Route::delete('student/certificate', [StudentController::class, 'deleteCertificate'])->name('student.certificate.delete');
     });
 });
 

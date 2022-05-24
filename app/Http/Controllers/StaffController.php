@@ -99,6 +99,8 @@ class StaffController extends Controller
      */
     public function update(UpdateStaffRequest $request, Staff $staff)
     {
+        // return dd($request);
+
         $staff->update($request->validated());
 
         return redirect()->back();

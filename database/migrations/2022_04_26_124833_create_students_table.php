@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
 
+            $table->string('nickname')->nullable();
             $table->string('nis', 10)->unique();
             $table->string('nisn', 10)->unique()->nullable();
             $table->string('major');
@@ -54,7 +55,6 @@ return new class extends Migration
             $table->text('birth_certificate_link')->nullable();
             $table->text('family_certificate_link')->nullable();
             $table->string('registration_path')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
 
             $table->timestamps();
         });

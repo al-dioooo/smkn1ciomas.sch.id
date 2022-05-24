@@ -37,13 +37,6 @@
         <template #description>{{ staff?.auth_data.id === $page.props.user.id ? "Your" : "Staff's" }} family information.</template>
 
         <template #form>
-            <!-- Family Certificate Number -->
-            <div class="col-span-6 sm:col-span-3">
-                <JetLabel for="family_certificate_number" value="Family Certificate Number" />
-                <JetInput id="family_certificate_number" v-model="form.family_certificate_number" :isError="form.errors.family_certificate_number" type="text" class="block w-full mt-1" autocomplete="family_certificate_number" />
-                <JetInputError :message="form.errors.family_certificate_number" class="mt-2" />
-            </div>
-
             <!-- Mother Name -->
             <div class="col-span-6 sm:col-span-3">
                 <JetLabel for="mother_name" value="Mother Name" />
@@ -70,6 +63,13 @@
                 <JetLabel for="pair_profession" value="Pair's Profession" />
                 <JetInput id="pair_profession" v-model="form.pair_profession" :isError="form.errors.pair_profession" type="text" class="block w-full mt-1" autocomplete="pair_profession" />
                 <JetInputError :message="form.errors.pair_profession" class="mt-2" />
+            </div>
+
+            <!-- Family Certificate Number -->
+            <div class="col-span-6 sm:col-span-3">
+                <JetLabel for="family_certificate_number" value="Family Certificate Number" />
+                <JetInput id="family_certificate_number" v-model="form.family_certificate_number" :isError="form.errors.family_certificate_number" type="text" class="block w-full mt-1" autocomplete="family_certificate_number" />
+                <JetInputError :message="form.errors.family_certificate_number" class="mt-2" />
             </div>
         </template>
 

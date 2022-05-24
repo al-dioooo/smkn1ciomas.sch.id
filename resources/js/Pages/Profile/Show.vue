@@ -6,6 +6,7 @@
     import TwoFactorAuthenticationForm from '@/Pages/Profile/Partials/TwoFactorAuthenticationForm.vue';
     import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm.vue';
     import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue';
+    import StudentProfileForm from '@/Components/Forms/Student/ProfileForm'
     import StudentAddressForm from '@/Components/Forms/Student/AddressForm'
     import StudentParentForm from '@/Components/Forms/Student/ParentForm'
     import StudentRegistrationForm from '@/Components/Forms/Student/RegistrationForm'
@@ -32,6 +33,12 @@
             <div class="py-10 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div v-if="$page.props.jetstream.canUpdateProfileInformation">
                     <UpdateProfileInformationForm :user="$page.props.user" />
+
+                    <JetSectionBorder />
+                </div>
+
+                <div v-if="$page.props.user.authenticatable_type === 'App\\Models\\Student'">
+                    <StudentProfileForm :student="$page.props.detail" class="mt-10 sm:mt-0" />
 
                     <JetSectionBorder />
                 </div>

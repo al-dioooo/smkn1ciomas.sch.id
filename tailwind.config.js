@@ -14,6 +14,9 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            aspectRatio: {
+                'cinema': '21/9'
+            }
         },
     },
 
