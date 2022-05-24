@@ -19,7 +19,11 @@
     const form = useForm({
         _method: "POST",
         _updating: "family",
-        name: props.staff?.auth_data.name
+        mother_name: props.staff?.mother_name,
+        pair_name: props.staff?.pair_name,
+        pair_nip: props.staff?.pair_nip,
+        pair_profession: props.staff?.pair_profession,
+        family_certificate_number: props.staff?.family_certificate_number
     })
 
     const updateStaffInformation = () => {

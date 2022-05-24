@@ -51,6 +51,12 @@ class UpdateStaffRequest extends FormRequest
             'bank_account_number' => 'required_if:_updating,"additional information"|string',
             'bank_account_name' => 'required_if:_updating,"additional information"|string|max:255',
 
+            'mother_name' => 'required_if:_updating,"family information"|string|max:255',
+            'pair_name' => 'required_if:_updating,"family information"|string|max:255',
+            'pair_nip' => 'required_if:_updating,"family information"|string|max:18',
+            'pair_profession' => 'required_if:_updating,"family information"|string|max:255',
+            'family_certificate_number' => 'required_if:_updating,"family information"|string|max:16',
+
             'is_mastering_braille' => 'required_if:_updating,"other information"|boolean',
             'is_mastering_gestural_language' => 'required_if:_updating,"other information"|boolean',
         ];
