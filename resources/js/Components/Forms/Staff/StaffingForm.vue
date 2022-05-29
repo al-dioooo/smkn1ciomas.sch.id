@@ -34,7 +34,7 @@ const form = useForm({
     source_of_salary: props.staff?.source_of_salary,
     pns_tmt: props.staff?.pns_tmt,
     karpeg: props.staff?.karpeg,
-    karsu: props.staff?.karsu,
+    karsu: null,
     nuks: props.staff?.nuks,
     is_licensed_as_principal:
         props.staff?.is_licensed_as_principal !== 0 ? true : false,
@@ -43,10 +43,34 @@ const form = useForm({
 });
 
 const updateStaffInformation = () => {
+    if (karsuInput.value) {
+        form.karsu = karsuInput.value.files[0];
+    }
     form.put(route("dashboard.staff.update", props.staff), {
         errorBag: "updateStaffInformation",
         preserveScroll: true,
+        onSuccess: () => {
+            form.clear();
+            karsuInput.value = null;
+        },
     });
+};
+
+const karsuInput = ref(null);
+const karsuPreview = ref(null);
+
+const selectNewKarsu = () => {
+    karsuInput.value.click();
+};
+const updateKarsuPreview = () => {
+    const photo = karsuInput.value.files[0];
+
+    if (!photo) return;
+    const reader = new FileReader();
+    reader.onLoad = (e) => {
+        karsuPreview.value = e.target.result;
+    };
+    reader.readAsDataURL(photo);
 };
 </script>
 
@@ -281,15 +305,53 @@ const updateStaffInformation = () => {
 
             <!-- Karsu -->
             <div class="col-span-6 sm:col-span-3">
-                <JetLabel for="karsu" value="Karsu" />
-                <JetInput
-                    id="karsu"
-                    v-model="form.karsu"
-                    :isError="form.errors.karsu"
+                <input
+                    ref="karsuInput"
                     type="file"
-                    class="block w-full mt-1"
-                    autocomplete="karsu"
+                    class="hidden"
+                    @change="updateKarsuPreview"
                 />
+
+                <JetLabel for="karsu_link" value="Karsu" />
+
+                <!-- current karsu -->
+                <a
+                    :href="staff?.karsu"
+                    target="_blank"
+                    v-if="!karsuPreview"
+                    class="block mt-2"
+                ></a>
+                <img
+                    :src="staff?.karsu"
+                    class="object-cover rounded-xl aspect-[4/1]"
+                />
+                <!-- New karsu Preview -->
+                <div v-if="karsuPreview" class="mt-2">
+                    <span
+                        class="block bg-center bg-no-repeat bg-cover rounded-xl aspect-[4/1]"
+                        :style="
+                            'background-image: url(\'' + karsuPreview + '\');'
+                        "
+                    />
+                </div>
+
+                <JetSecondaryButton
+                    class="mt-2 mr-2"
+                    type="button"
+                    @click.prevent="selectNewKarsu"
+                >
+                    Select New
+                </JetSecondaryButton>
+
+                <JetSecondaryButton
+                    v-if="staff?.karsu_link"
+                    type="button"
+                    class="mt-2"
+                    @click.prevent="deletePhoto"
+                >
+                    Remove
+                </JetSecondaryButton>
+
                 <JetInputError :message="form.errors.karsu" class="mt-2" />
             </div>
 

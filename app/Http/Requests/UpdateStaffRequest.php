@@ -48,7 +48,7 @@ class UpdateStaffRequest extends FormRequest
             'source_salary' => 'required_if:_updating,"staffing information"|string|max:255',
             'pns_mt' => 'required_if:_updating,"staffing information"|date',
             'karpeg' => 'required_if:_updating,"staffing information"|string|max:255',
-            'karsu' => 'required_if:_updating,"staffing information"|string|max:255',
+            'karsu' => 'nullabe|mimes:png,jpg,webp',
             'nuks' => 'required_if:_updating,"staffing information"|number|max:22',
             'is_licensed_as_principal' => 'required_if:_updating,"staffing information"|boolean',
             'had_supervision' => 'required_if:_updating,"staffing information"|boolean',
