@@ -19,7 +19,7 @@ const props = defineProps({
 
 const form = useForm({
     _method: "POST",
-    _updating: "staffing",
+    _updating: "staffing information",
     nip: props.staff?.nip,
     nuptk: props.staff?.nuptk,
     employment_status: props.staff?.employment_status,
