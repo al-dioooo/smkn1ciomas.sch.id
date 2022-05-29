@@ -10,6 +10,8 @@ import JetLabel from "@/Jetstream/Label.vue";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue";
 import JetActionMessage from "@/Jetstream/ActionMessage.vue";
 import axios from "axios";
+import Checkbox from "../../../../../vendor/laravel/jetstream/stubs/inertia/resources/js/Jetstream/Checkbox.vue";
+import JetCheckbox from "@/Jetstream/Checkbox";
 
 const props = defineProps({
     staff: Object,
@@ -34,8 +36,10 @@ const form = useForm({
     karpeg: props.staff?.karpeg,
     karsu: props.staff?.karsu,
     nuks: props.staff?.nuks,
-    is_licensed_as_principal: props.staff?.is_licensed_as_principal,
-    had_supervision_training: props.staff?.had_supervision_training,
+    is_licensed_as_principal:
+        props.staff?.is_licensed_as_principal !== 0 ? true : false,
+    had_supervision_training:
+        props.staff?.had_supervision_training !== 0 ? true : false,
 });
 
 const updateStaffInformation = () => {
@@ -304,7 +308,7 @@ const updateStaffInformation = () => {
             </div>
 
             <!-- Is Licensed as Principal -->
-            <div class="col-span-6 sm:col-span-3">
+            <!-- <div class="col-span-6 sm:col-span-3">
                 <JetLabel
                     for="is_licensed_as_principal"
                     value="Is Licensed as Principal"
@@ -313,9 +317,26 @@ const updateStaffInformation = () => {
                     id="is_licensed_as_principal"
                     v-model="form.is_licensed_as_principal"
                     :isError="form.errors.is_licensed_as_principal"
-                    type="option"
+                    type="bool"
                     class="block w-full mt-1"
                     autocomplete="is_licensed_as_principal"
+                />
+                <JetInputError
+                    :message="form.errors.is_licensed_as_principal"
+                    class="mt-2"
+                />
+            </div> -->
+
+            <div class="flex col-span-6 sm:col-span-3">
+                <JetCheckbox
+                    v-model:checked="form.is_licensed_as_principal"
+                    name="is_licensed_as_principal"
+                    id="is_licensed_as_principal"
+                />
+                <JetLabel
+                    for="is_licensed_as_principal"
+                    value="Is Licensed as Principal"
+                    class="ml-2"
                 />
                 <JetInputError
                     :message="form.errors.is_licensed_as_principal"
@@ -324,7 +345,23 @@ const updateStaffInformation = () => {
             </div>
 
             <!-- Had Supervision Training -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="flex col-span-6 sm:col-span-3">
+                <JetCheckbox
+                    v-model:checked="form.had_supervision_training"
+                    name="had_supervision_training"
+                    id="had_supervision_training"
+                />
+                <JetLabel
+                    for="had_supervision_training"
+                    value="Had Supervision Training"
+                    class="ml-2"
+                />
+                <JetInputError
+                    :message="form.errors.had_supervision_training"
+                    class="mt-2"
+                />
+            </div>
+            <!-- <div class="col-span-6 sm:col-span-3">
                 <JetLabel
                     for="had_supervision_training"
                     value="Had Supervision Training"
@@ -333,7 +370,7 @@ const updateStaffInformation = () => {
                     id="had_supervision_training"
                     v-model="form.had_supervision_training"
                     :isError="form.errors.had_supervision_training"
-                    type="option"
+                    type="bool"
                     class="block w-full mt-1"
                     autocomplete="had_supervision_training"
                 />
@@ -341,7 +378,7 @@ const updateStaffInformation = () => {
                     :message="form.errors.had_supervision_training"
                     class="mt-2"
                 />
-            </div>
+            </div> -->
         </template>
 
         <template #actions>
