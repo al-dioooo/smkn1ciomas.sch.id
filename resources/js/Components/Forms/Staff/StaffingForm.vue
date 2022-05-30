@@ -9,8 +9,9 @@
     import JetLabel from "@/Jetstream/Label.vue"
     import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue"
     import JetActionMessage from "@/Jetstream/ActionMessage.vue"
-    import axios from "axios"
     import JetCheckbox from "@/Jetstream/Checkbox"
+    import FormSelect from "@/Components/Forms/Select"
+    import axios from "axios"
 
     const props = defineProps({
         staff: Object,
@@ -160,9 +161,13 @@
             </div>
 
             <!-- Source of Salary -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-2">
                 <JetLabel for="source_of_salary" value="Source of Salary" />
-                <JetInput id="source_of_salary" v-model="form.source_of_salary" :isError="form.errors.source_of_salary" type="option" class="block w-full mt-1" autocomplete="source_of_salary" />
+                <FormSelect id="source_of_salary" v-model="form.source_of_salary" :isError="form.errors.source_of_salary" class="block w-full mt-1">
+                    <option value="APBD Provinsi">APBD Provinsi</option>
+                    <option value="BOPD">BOPD</option>
+                    <option value="Komite">Komite</option>
+                </FormSelect>
                 <JetInputError :message="form.errors.source_of_salary" class="mt-2" />
             </div>
 
