@@ -245,13 +245,13 @@
 
                 <JetLabel for="pair_pns_identity_link" value="Pair PNS Identity" />
 
-                <div @click="openPNSIdentityPreview" class="mt-2 transition cursor-pointer hover:scale-[1.025] active:hover:scale-[.975]">
+                <button @click.prevent="openPNSIdentityPreview" class="mt-2 transition cursor-pointer hover:scale-[1.025] active:hover:scale-[.975] rounded-xl border-gray-300 border shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none">
                     <!-- Current Pair PNS Identity -->
                     <img :src="staff?.pair_pns_identity" v-if="!pairPNSIdentityPreview" class="object-cover rounded-xl aspect-[4/1]" />
 
                     <!-- New Pair PNS Identity Preview -->
                     <span v-if="pairPNSIdentityPreview" class="block bg-center bg-no-repeat bg-cover rounded-xl aspect-[4/1]" :style="'background-image: url(\'' + pairPNSIdentityPreview + '\');'" />
-                </div>
+                </button>
 
                 <JetSecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewPairPNSIdentity"> Select New </JetSecondaryButton>
 

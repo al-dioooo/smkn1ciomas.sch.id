@@ -29,8 +29,8 @@ class DatabaseSeeder extends Seeder
 
         $student = Student::create([
             'nis' => '1234123412',
-            'major' => 'rpl',
-            'class' => 'XII RPL 1'
+            'major' => 'pplg',
+            'class' => 'XII PPLG 1'
         ]);
 
         $student->auth()->create([

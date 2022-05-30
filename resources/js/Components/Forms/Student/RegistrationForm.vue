@@ -2,6 +2,7 @@
     import { ref } from "vue"
     import { Inertia } from "@inertiajs/inertia"
     import { useForm } from "@inertiajs/inertia-vue3"
+    import JetDialogModal from "@/Jetstream/DialogModal.vue"
     import JetButton from "@/Jetstream/Button.vue"
     import JetFormSection from "@/Jetstream/FormSection.vue"
     import JetInput from "@/Jetstream/Input.vue"
@@ -32,6 +33,10 @@
     const schoolCertificatePreview = ref(null)
     const birthCertificatePreview = ref(null)
     const familyCertificatePreview = ref(null)
+
+    const isOpeningSchoolCertificatePreview = ref(false)
+    const isOpeningFamilyCertificatePreview = ref(false)
+    const isOpeningBirthCertificatePreview = ref(false)
 
     const updateRegistrationInformation = () => {
         if (schoolCertificateInput.value) {
@@ -111,6 +116,30 @@
         reader.readAsDataURL(photo)
     }
 
+    const openSchoolCertificatePreview = () => {
+        isOpeningSchoolCertificatePreview.value = true
+    }
+
+    const closeSchoolCertificatePreview = () => {
+        isOpeningSchoolCertificatePreview.value = false
+    }
+
+    const openFamilyCertificatePreview = () => {
+        isOpeningFamilyCertificatePreview.value = true
+    }
+
+    const closeFamilyCertificatePreview = () => {
+        isOpeningFamilyCertificatePreview.value = false
+    }
+
+    const openBirthCertificatePreview = () => {
+        isOpeningBirthCertificatePreview.value = true
+    }
+
+    const closeBirthCertificatePreview = () => {
+        isOpeningBirthCertificatePreview.value = false
+    }
+
     const deleteCertificate = (certificate) => {
         Inertia.delete(route('dashboard.student.certificate.destroy', { student: props.student, certificate }), {
             preserveScroll: true,
@@ -160,15 +189,13 @@
 
                 <JetLabel for="school_certificate_link" value="School Certificate" />
 
-                <!-- Current School Certificate -->
-                <a :href="student?.school_certificate" target="_blank" v-if="!schoolCertificatePreview" class="block mt-2">
-                    <img :src="student?.school_certificate" class="object-cover rounded-xl aspect-[4/1]" />
-                </a>
+                <button @click.prevent="openSchoolCertificatePreview" class="mt-2 transition cursor-pointer hover:scale-[1.025] active:hover:scale-[.975] rounded-xl border-gray-300 border shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none">
+                    <!-- Current School Certificate -->
+                    <img :src="student?.school_certificate" v-if="!schoolCertificatePreview" class="object-cover rounded-xl aspect-[4/1]" />
 
-                <!-- New School Certificate Preview -->
-                <div v-if="schoolCertificatePreview" class="mt-2">
-                    <span class="block bg-center bg-no-repeat bg-cover rounded-xl aspect-[4/1]" :style="'background-image: url(\'' + schoolCertificatePreview + '\');'" />
-                </div>
+                    <!-- New School Certificate Preview -->
+                    <span v-if="schoolCertificatePreview" class="block bg-center bg-no-repeat bg-cover rounded-xl aspect-[4/1]" :style="'background-image: url(\'' + schoolCertificatePreview + '\');'" />
+                </button>
 
                 <JetSecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewSchoolCertificate"> Select New </JetSecondaryButton>
 
@@ -191,15 +218,13 @@
 
                 <JetLabel for="family_certificate_link" value="Family Certificate" />
 
-                <!-- Current Family Certificate -->
-                <a :href="student?.family_certificate" target="_blank" v-if="!familyCertificatePreview" class="block mt-2">
-                    <img :src="student?.family_certificate" class="object-cover rounded-xl aspect-[4/1]" />
-                </a>
+                <button @click.prevent="openFamilyCertificatePreview" class="mt-2 transition cursor-pointer hover:scale-[1.025] active:hover:scale-[.975] rounded-xl border-gray-300 border shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none">
+                    <!-- Current Family Certificate -->
+                    <img :src="student?.family_certificate" v-if="!familyCertificatePreview" class="object-cover rounded-xl aspect-[4/1]" />
 
-                <!-- New Family Certificate Preview -->
-                <div v-if="familyCertificatePreview" class="mt-2">
-                    <span class="block bg-center bg-no-repeat bg-cover rounded-xl aspect-[4/1]" :style="'background-image: url(\'' + familyCertificatePreview + '\');'" />
-                </div>
+                    <!-- New Family Certificate Preview -->
+                    <span v-if="familyCertificatePreview" class="block bg-center bg-no-repeat bg-cover rounded-xl aspect-[4/1]" :style="'background-image: url(\'' + familyCertificatePreview + '\');'" />
+                </button>
 
                 <JetSecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewFamilyCertificate"> Select New </JetSecondaryButton>
 
@@ -217,15 +242,13 @@
 
                 <JetLabel for="birth_certificate_link" value="Birth Certificate" />
 
-                <!-- Current Birth Certificate -->
-                <a :href="student?.birth_certificate" target="_blank" v-if="!birthCertificatePreview" class="block mt-2">
-                    <img :src="student?.birth_certificate" class="object-cover rounded-xl aspect-[4/1]" />
-                </a>
+                <button @click.prevent="openBirthCertificatePreview" class="mt-2 transition cursor-pointer hover:scale-[1.025] active:hover:scale-[.975] rounded-xl border-gray-300 border shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none">
+                    <!-- Current Birth Certificate -->
+                    <img :src="student?.birth_certificate" v-if="!birthCertificatePreview" class="object-cover rounded-xl aspect-[4/1]" />
 
-                <!-- New Birth Certificate Preview -->
-                <div v-if="birthCertificatePreview" class="mt-2">
-                    <span class="block bg-center bg-no-repeat bg-cover rounded-xl aspect-[4/1]" :style="'background-image: url(\'' + birthCertificatePreview + '\');'" />
-                </div>
+                    <!-- New Birth Certificate Preview -->
+                    <span v-if="birthCertificatePreview" class="block bg-center bg-no-repeat bg-cover rounded-xl aspect-[4/1]" :style="'background-image: url(\'' + birthCertificatePreview + '\');'" />
+                </button>
 
                 <JetSecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewBirthCertificate"> Select New </JetSecondaryButton>
 
@@ -241,4 +264,79 @@
             <JetButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing"> Save </JetButton>
         </template>
     </JetFormSection>
+
+    <!-- School Certificate Preview Modal -->
+    <JetDialogModal :show="isOpeningSchoolCertificatePreview" @close="closeSchoolCertificatePreview">
+        <template #title>School Certificate Preview</template>
+
+        <template #content>
+            <div class="relative flex w-full overflow-hidden rounded-xl">
+                <img class="w-full" :src="schoolCertificatePreview ?? student?.school_certificate" alt="School Certificate Preview" />
+                <div v-if="student?.school_certificate_link" class="absolute inset-0 flex items-end justify-end p-2 pointer-events-none">
+                    <a :href="student?.school_certificate" class="p-1 text-gray-700 transition bg-white border border-gray-300 rounded-full pointer-events-auto hover:scale-105 active:hover:scale-95 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <polyline points="15 15 15 9 9 9"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </template>
+
+        <template #footer>
+            <JetSecondaryButton @click="closeSchoolCertificatePreview">Close</JetSecondaryButton>
+        </template>
+    </JetDialogModal>
+
+    <!-- Family Certificate Preview Modal -->
+    <JetDialogModal :show="isOpeningFamilyCertificatePreview" @close="closeFamilyCertificatePreview">
+        <template #title>Family Certificate Preview</template>
+
+        <template #content>
+            <div class="relative flex w-full overflow-hidden rounded-xl">
+                <img class="w-full" :src="familyCertificatePreview ?? student?.family_certificate" alt="Family Certificate Preview" />
+                <div v-if="student?.family_certificate_link" class="absolute inset-0 flex items-end justify-end p-2 pointer-events-none">
+                    <a :href="student?.family_certificate" class="p-1 text-gray-700 transition bg-white border border-gray-300 rounded-full pointer-events-auto hover:scale-105 active:hover:scale-95 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <polyline points="15 15 15 9 9 9"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </template>
+
+        <template #footer>
+            <JetSecondaryButton @click="closeFamilyCertificatePreview">Close</JetSecondaryButton>
+        </template>
+    </JetDialogModal>
+
+    <!-- Birth Certificate Preview Modal -->
+    <JetDialogModal :show="isOpeningBirthCertificatePreview" @close="closeBirthCertificatePreview">
+        <template #title>Birth Certificate Preview</template>
+
+        <template #content>
+            <div class="relative flex w-full overflow-hidden rounded-xl">
+                <img class="w-full" :src="birthCertificatePreview ?? student?.birth_certificate" alt="Birth Certificate Preview" />
+                <div v-if="student?.birth_certificate_link" class="absolute inset-0 flex items-end justify-end p-2 pointer-events-none">
+                    <a :href="student?.birth_certificate" class="p-1 text-gray-700 transition bg-white border border-gray-300 rounded-full pointer-events-auto hover:scale-105 active:hover:scale-95 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <polyline points="15 15 15 9 9 9"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </template>
+
+        <template #footer>
+            <JetSecondaryButton @click="closeBirthCertificatePreview">Close</JetSecondaryButton>
+        </template>
+    </JetDialogModal>
 </template>
