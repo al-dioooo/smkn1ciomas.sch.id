@@ -111,10 +111,23 @@
         reader.readAsDataURL(photo)
     }
 
-    const deleteCertificate = () => {
-        Inertia.delete(route('student.certificate.delete', props.student), {
+    const deleteCertificate = (certificate) => {
+        Inertia.delete(route('dashboard.student.certificate.destroy', { student: props.student, certificate }), {
             preserveScroll: true,
-            onSuccess: () => {}
+            onSuccess: () => {
+                if (certificate == 'school-certificate' && schoolCertificateInput.value?.value) {
+                    schoolCertificatePreview.value = null
+                    schoolCertificateInput.value = null
+                }
+                else if (certificate == 'family-certificate' && familyCertificateInput.value?.value) {
+                    familyCertificatePreview.value = null
+                    familyCertificateInput.value = null
+                }
+                else if (certificate == 'birth-certificate' && birthCertificateInput.value?.value) {
+                    birthCertificatePreview.value = null
+                    birthCertificateInput.value = null
+                }
+            }
         })
     }
 </script>
@@ -141,7 +154,7 @@
             </div>
 
             <!-- School Certificate -->
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-3">
                 <!-- School Certificate File Input -->
                 <input ref="schoolCertificateInput" type="file" class="hidden" @change="updateSchoolCertificatePreview" />
 
@@ -159,7 +172,7 @@
 
                 <JetSecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewSchoolCertificate"> Select New </JetSecondaryButton>
 
-                <JetSecondaryButton v-if="student?.school_certificate_link" type="button" class="mt-2" @click.prevent="deletePhoto"> Remove </JetSecondaryButton>
+                <JetSecondaryButton v-if="student?.school_certificate_link" type="button" class="mt-2" @click.prevent="deleteCertificate('school-certificate')"> Remove </JetSecondaryButton>
 
                 <JetInputError :message="form.errors.school_certificate" class="mt-2" />
             </div>
@@ -172,7 +185,7 @@
             </div>
 
             <!-- Family Certificate -->
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-3">
                 <!-- Family Certificate File Input -->
                 <input ref="familyCertificateInput" type="file" class="hidden" @change="updateFamilyCertificatePreview" />
 
@@ -190,13 +203,15 @@
 
                 <JetSecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewFamilyCertificate"> Select New </JetSecondaryButton>
 
-                <JetSecondaryButton v-if="student?.family_certificate_link" type="button" class="mt-2" @click.prevent="deletePhoto"> Remove </JetSecondaryButton>
+                <JetSecondaryButton v-if="student?.family_certificate_link" type="button" class="mt-2" @click.prevent="deleteCertificate('family-certificate')"> Remove </JetSecondaryButton>
 
                 <JetInputError :message="form.errors.family_certificate" class="mt-2" />
             </div>
 
+            <div class="hidden sm:block"></div>
+
             <!-- Birth Certificate -->
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-3">
                 <!-- Birth Certificate File Input -->
                 <input ref="birthCertificateInput" type="file" class="hidden" @change="updateBirthCertificatePreview" />
 
@@ -214,7 +229,7 @@
 
                 <JetSecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewBirthCertificate"> Select New </JetSecondaryButton>
 
-                <JetSecondaryButton v-if="student?.birth_certificate_link" type="button" class="mt-2" @click.prevent="deletePhoto"> Remove </JetSecondaryButton>
+                <JetSecondaryButton v-if="student?.birth_certificate_link" type="button" class="mt-2" @click.prevent="deleteCertificate('birth-certificate')"> Remove </JetSecondaryButton>
 
                 <JetInputError :message="form.errors.birth_certificate" class="mt-2" />
             </div>

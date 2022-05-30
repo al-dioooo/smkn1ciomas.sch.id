@@ -109,15 +109,21 @@ class StudentController extends Controller
         $student->update($request->validated());
 
         if ($request->file('school_certificate') !== null) {
+            if ($student->school_certificate_link && file_exists(storage_path($student->school_certificate_link))) {
+                unlink(storage_path($student->school_certificate_link));
+            }
             $student->school_certificate_link = $request->file('school_certificate')->storePublicly('certificates', ['disk' => 'public']);
         }
 
         if ($request->file('family_certificate') !== null) {
+            if ($student->family_certificate_link && file_exists(storage_path($student->family_certificate_link))) {
+                unlink(storage_path($student->family_certificate_link));
+            }
             $student->family_certificate_link = $request->file('family_certificate')->storePublicly('certificates', ['disk' => 'public']);
         }
 
         if ($request->file('birth_certificate') !== null) {
-            if (file_exists(storage_path($student->birth_certificate_link))) {
+            if ($student->birth_certificate_link && file_exists(storage_path($student->birth_certificate_link))) {
                 unlink(storage_path($student->birth_certificate_link));
             }
             $student->birth_certificate_link = $request->file('birth_certificate')->storePublicly('certificates', ['disk' => 'public']);
@@ -146,5 +152,29 @@ class StudentController extends Controller
         Excel::import(new StudentImport(), request()->file('file'));
 
         return redirect()->back()->banner('Yay, successfully imported data from Microsoft Excel!');
+    }
+
+    public function deleteCertificate(Student $student, $certificate)
+    {
+        if ($certificate == 'school-certificate') {
+            if ($student->school_certificate_link && file_exists(storage_path($student->school_certificate_link))) {
+                unlink(storage_path($student->school_certificate_link));
+            }
+            $student->school_certificate_link = null;
+        } else if ($certificate == 'family-certificate') {
+            if ($student->family_certificate_link && file_exists(storage_path($student->family_certificate_link))) {
+                unlink(storage_path($student->family_certificate_link));
+            }
+            $student->family_certificate_link = null;
+        } else if ($certificate == 'birth-certificate') {
+            if ($student->birth_certificate_link && file_exists(storage_path($student->birth_certificate_link))) {
+                unlink(storage_path($student->birth_certificate_link));
+            }
+            $student->birth_certificate_link = null;
+        }
+
+        $student->save();
+
+        return redirect()->back();
     }
 }

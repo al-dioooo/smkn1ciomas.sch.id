@@ -108,7 +108,7 @@ return [
     'regex'                => 'Format :attribute tidak valid.',
     'required'             => ':Attribute wajib diisi.',
     'required_array_keys'  => ':Attribute wajib berisi entri untuk: :values.',
-    'required_if'          => ':Attribute wajib diisi bila :other :value.',
+    'required_if'          => ':Attribute wajib diisi.',
     'required_unless'      => ':Attribute wajib diisi kecuali :other memiliki nilai :values.',
     'required_with'        => ':Attribute wajib diisi bila terdapat :values.',
     'required_with_all'    => ':Attribute wajib diisi bila terdapat :values.',
@@ -134,7 +134,6 @@ return [
         ],
     ],
     'attributes' => [
-        '_updating' => 'meng-update',
         'name' => 'nama',
         'city' => 'kota',
         'district' => 'kecamatan',

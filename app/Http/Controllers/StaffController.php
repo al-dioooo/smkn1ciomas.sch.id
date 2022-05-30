@@ -99,7 +99,12 @@ class StaffController extends Controller
      */
     public function update(UpdateStaffRequest $request, Staff $staff)
     {
-        // return dd($request);
+        if ($request->file('pair_pns_identity') !== null) {
+            if ($staff->pair_pns_identity_link && file_exists(storage_path($staff->pair_pns_identity_link))) {
+                unlink(storage_path($staff->pair_pns_identity_link));
+            }
+            $staff->pair_pns_identity_link = $request->file('pair_pns_identity')->storePublicly('pair_pns_identity', ['disk' => 'public']);
+        }
 
         $staff->update($request->validated());
 
@@ -124,5 +129,17 @@ class StaffController extends Controller
         Excel::import(new StaffImport(), request()->file('file'));
 
         return redirect()->back()->banner('Yay, successfully imported data from Microsoft Excel!');
+    }
+
+    public function deletePairPNSIdentity(Staff $staff)
+    {
+        if ($staff->pair_pns_identity_link && file_exists(storage_path($staff->pair_pns_identity_link))) {
+            unlink(storage_path($staff->pair_pns_identity_link));
+        }
+        $staff->pair_pns_identity_link = null;
+
+        $staff->save();
+
+        return redirect()->back();
     }
 }

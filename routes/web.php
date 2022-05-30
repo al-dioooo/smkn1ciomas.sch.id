@@ -41,7 +41,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::resource('staff', StaffController::class);
         Route::post('staff/import', [StaffController::class, 'import'])->name('staff.import');
 
-        Route::delete('student/certificate', [StudentController::class, 'deleteCertificate'])->name('student.certificate.delete');
+        Route::delete('student/{student}/certificate/{certificate}/delete', [StudentController::class, 'deleteCertificate'])->name('student.certificate.destroy');
+        Route::delete('staff/{staff}/pair-pns-identity/delete', [StaffController::class, 'deletePairPNSIdentity'])->name('staff.pair-pns-identity.destroy');
     });
 });
 
