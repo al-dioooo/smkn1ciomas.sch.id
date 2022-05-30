@@ -50,10 +50,10 @@ return new class extends Migration
             $table->string('source_of_salary')->nullable();
             $table->string('pns_tmt')->nullable();
             $table->string('karpeg')->nullable();
-            $table->string('pair_pns_identity_link')->nullable();
+            $table->string('pair_pns_identity_link')->nullable(); // Karis/Karsu
             $table->string('nuks')->nullable();
-            $table->string('is_licensed_as_principal')->nullable();
-            $table->string('had_supervision_training')->nullable();
+            $table->boolean('is_licensed_as_principal')->default(0);
+            $table->boolean('had_supervision_training')->default(0);
 
             $table->string('family_certificate_number')->nullable();
             $table->string('mother_name')->nullable();
@@ -68,8 +68,8 @@ return new class extends Migration
             $table->string('bank_account_number')->nullable();
             $table->string('bank_account_name')->nullable();
 
-            $table->boolean('is_mastering_braille')->nullable();
-            $table->boolean('is_mastering_gestural_language')->nullable();
+            $table->boolean('is_mastering_braille')->default(0);
+            $table->boolean('is_mastering_gestural_language')->default(0);
 
             $table->timestamps();
         });

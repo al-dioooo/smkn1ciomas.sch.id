@@ -68,7 +68,8 @@ class Staff extends Model
     ];
 
     protected $appends = [
-        'auth_data'
+        'auth_data',
+        'pair_pns_identity'
     ];
 
     public function getCreatedAtAttribute($value)
@@ -102,6 +103,15 @@ class Staff extends Model
     public function getProgressAttribute()
     {
         return count(array_filter($this->attributes));
+    }
+
+    public function getPairPnsIdentityAttribute()
+    {
+        return $this->pair_pns_identity_link ? Storage::disk('public')->url($this->pair_pns_identity_link) : $this->defaultNoImageUrl();
+    }
+
+    protected function defaultNoImageUrl() {
+        return 'https://placehold.co/525x225/EBF4FF/7F9CF5?text=Empty,%20please%20upload%20file.&font=source-sans-pro';
     }
 
     public function auth()
