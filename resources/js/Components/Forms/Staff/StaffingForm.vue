@@ -263,15 +263,19 @@
             <div class="col-span-6 space-y-4">
                 <!-- Is Licensed as Principal -->
                 <div class="flex col-span-6 sm:col-span-3">
-                    <JetCheckbox v-model:checked="form.is_licensed_as_principal" name="is_licensed_as_principal" id="is_licensed_as_principal" />
-                    <JetLabel for="is_licensed_as_principal" value="Is Licensed as Principal" class="ml-2" />
+                    <div class="flex items-center space-x-2">
+                        <JetCheckbox v-model:checked="form.is_licensed_as_principal" name="is_licensed_as_principal" id="is_licensed_as_principal" />
+                        <JetLabel for="is_licensed_as_principal" value="Is Licensed as Principal" />
+                    </div>
                     <JetInputError :message="form.errors.is_licensed_as_principal" class="mt-2" />
                 </div>
 
                 <!-- Had Supervision Training -->
                 <div class="flex col-span-6 sm:col-span-3">
-                    <JetCheckbox v-model:checked="form.had_supervision_training" name="had_supervision_training" id="had_supervision_training" />
-                    <JetLabel for="had_supervision_training" value="Had Supervision Training" class="ml-2" />
+                    <div class="flex items-center space-x-2">
+                        <JetCheckbox v-model:checked="form.had_supervision_training" name="had_supervision_training" id="had_supervision_training" />
+                        <JetLabel for="had_supervision_training" value="Had Supervision Training" />
+                    </div>
                     <JetInputError :message="form.errors.had_supervision_training" class="mt-2" />
                 </div>
             </div>

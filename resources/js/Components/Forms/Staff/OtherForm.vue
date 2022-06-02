@@ -43,7 +43,6 @@
                 <div>
                     <div class="flex items-center space-x-2">
                         <JetCheckbox v-model:checked="form.is_mastering_braille" name="is_mastering_braille" id="is_mastering_braille" />
-                        <!-- <input type="checkbox" v-model="form.is_mastering_braille" name="is_mastering_braille" id="is_mastering_braille" /> -->
                         <JetLabel for="is_mastering_braille" value="Is Mastering Braille" />
                     </div>
                     <JetInputError :message="form.errors.is_mastering_braille" class="mt-2" />
