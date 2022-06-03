@@ -19,18 +19,42 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
-// Route::middleware('guest')->group(function () {
-//     Route::get('/', [PageController::class, 'index'])->name('index');
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
 // });
+
+Route::middleware('guest')->group(function () {
+    Route::get('/', [PageController::class, 'index'])->name('index');
+
+    Route::as('guest.')->group(function() {
+        // Profile
+        Route::get('history', [PageController::class, 'history'])->name('history');
+        Route::get('vision-mission', [PageController::class, 'visionMission'])->name('vision-mission');
+        Route::get('leadership', [PageController::class, 'leadership'])->name('leadership');
+        Route::get('teacher', [PageController::class, 'teacher'])->name('teacher');
+        Route::get('administration', [PageController::class, 'administration'])->name('administration');
+
+        Route::get('rpl', [PageController::class, 'rpl'])->name('rpl');
+        Route::get('anm', [PageController::class, 'anm'])->name('anm');
+        Route::get('tkr', [PageController::class, 'tkr'])->name('tkr');
+        Route::get('tpl', [PageController::class, 'tpl'])->name('tpl');
+        Route::get('pspt', [PageController::class, 'pspt'])->name('pspt');
+
+        Route::get('osis', [PageController::class, 'osis'])->name('osis');
+        Route::get('extracurricular', [PageController::class, 'extracurricular'])->name('extracurricular');
+        Route::get('teaching-factory', [PageController::class, 'teachingFactory'])->name('teaching-factory');
+        Route::get('industry', [PageController::class, 'industry'])->name('industry');
+        Route::get('alumni', [PageController::class, 'alumni'])->name('alumni');
+
+        Route::get('job-exchange', [PageController::class, 'jobExchange'])->name('job-exchange');
+        Route::get('contact', [PageController::class, 'contact'])->name('contact');
+    });
+});
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'team'])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
@@ -46,4 +70,4 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     });
 });
 
-require(__DIR__ . './jetstream.php');
+require(__DIR__ . '/jetstream.php');

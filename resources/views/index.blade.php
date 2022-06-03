@@ -99,7 +99,7 @@
             <div id="serenity_feature-1" class="mb-5 text-center widget serenity-feature-widget col-sm-6 col-md-6 col-lg-4">
                 <div class="shadow card">
                     <div class="px-4 py-5 card-body">
-                        <a href="animasi.html" target="blank"><img src="assets/img/animasi.png" class="mt-0 mb-4 image">
+                        <a href="{{ route('guest.anm') }}" target="blank"><img src="assets/img/animasi.png" class="mt-0 mb-4 image">
                         </a>
                         <h6 class="mb-3 widget-title">Animasi</h6>
                         <p>Animasi merupakan suatu teknik menampilkan gambar berurut sedemikian rupa sehingga penonton
@@ -111,7 +111,7 @@
             <div id="serenity_feature-2" class="mb-5 text-center widget serenity-feature-widget col-sm-6 col-md-6 col-lg-4">
                 <div class="shadow card">
                     <div class="px-4 py-5 card-body">
-                        <a href="rpl.html" target="blank"><img src="assets/img/rpl.png" class="mt-0 mb-4 image"> </a>
+                        <a href="{{ route('guest.rpl') }}" target="blank"><img src="assets/img/rpl.png" class="mt-0 mb-4 image"> </a>
                         <h6 class="mb-3 widget-title">Rekayasa Perangkat Lunak</h6>
                         <p>Rekayasa perangkat lunak (RPL, atau dalam bahasa Inggris: Software Engineering atau SE)
                             adalah satu bidang profesi yang mendalami cara-cara pengembangan perangkat lunak termasuk
@@ -123,7 +123,7 @@
             <div id="serenity_feature-3" class="mb-5 text-center widget serenity-feature-widget col-sm-6 col-md-6 col-lg-4">
                 <div class="shadow card">
                     <div class="px-4 py-5 card-body">
-                        <a href="tkr.html" target="blank"><img src="assets/img/tkr.png" class="mt-0 mb-4 image"></a>
+                        <a href="{{ route('guest.tkr') }}" target="blank"><img src="assets/img/tkr.png" class="mt-0 mb-4 image"></a>
                         <h6 class="mb-3 widget-title">Teknik Kendaraan Ringan</h6>
                         <p>Teknik Kendaraan Ringan merupakan kompetensi keahlian bidang teknik otomotif yang menekankan
                             keahlian pada bidang penguasaan jasa perbaikan kendaraan ringan.</p>
@@ -134,7 +134,7 @@
                 class="mb-5 text-center widget serenity-feature-widget offset-md-2 col-sm-6 col-md-6 col-lg-4">
                 <div class="shadow card">
                     <div class="px-4 py-5 card-body">
-                        <a href="tpl.html" target="blank"><img src="assets/img/tpl.png" class="mt-0 mb-4 image"></a>
+                        <a href="{{ route('guest.tpl') }}" target="blank"><img src="assets/img/tpl.png" class="mt-0 mb-4 image"></a>
                         <h6 class="mb-3 widget-title">Teknik Pengelasan</h6>
                         <p>Pengelasan (Welding) adalah salah satu teknik penyambungan logam dengan cara mencairkan
                             sebagian logam pengisi dengan atau tanpa tekanan dan dengan atau tanpa logam penambah yang
@@ -145,7 +145,7 @@
             <div id="serenity_feature-5" class="mb-5 text-center widget serenity-feature-widget col-sm-6 col-md-6 col-lg-4">
                 <div class="shadow card">
                     <div class="px-4 py-5 card-body">
-                        <a href="pspt.html" target="blank"><img src="assets/img/broadcasting.png"
+                        <a href="{{ route('guest.pspt') }}" target="blank"><img src="assets/img/broadcasting.png"
                                 class="mt-0 mb-4 image"></a>
                         <h6 class="mb-3 widget-title">Broadcasting</h6>
                         <p>Penyiaran adalah pendistribusian muatan audio atau video kepada pemirsa yang tersebar melalui
