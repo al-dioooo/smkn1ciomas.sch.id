@@ -1,5 +1,5 @@
 <script setup>
-    import AppLayout from '@/Layouts/AppLayout';
+    import AppLayout from '@/Layouts/AppLayout'
     import Info from '@/Components/Info'
 </script>
 

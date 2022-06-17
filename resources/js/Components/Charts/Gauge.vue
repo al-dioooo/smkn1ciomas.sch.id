@@ -1,13 +1,3 @@
-<template>
-    <div class="flex items-center p-2 mt-8 space-x-4 border rounded-xl">
-        <v-chart class="w-24 h-24 aspect-square" :option="option" />
-        <div>
-            <p class="text-sm">{{ subtitle }}</p>
-            <p class="text-xl">{{ title }}</p>
-        </div>
-    </div>
-</template>
-
 <script setup>
     import { use } from "echarts/core"
     import { SVGRenderer } from "echarts/renderers"
@@ -22,6 +12,10 @@
         showProgress: {
             type: Boolean,
             default: true
+        },
+        link: {
+            type: String,
+            default: null
         }
     })
 
@@ -81,3 +75,13 @@
         ]
     })
 </script>
+
+<template>
+    <div class="flex items-center p-2 mt-8 space-x-4 border rounded-xl">
+        <v-chart class="w-24 h-24 aspect-square" :option="option" />
+        <div>
+            <p class="text-sm">{{ subtitle }}</p>
+            <p class="text-xl">{{ title }}</p>
+        </div>
+    </div>
+</template>

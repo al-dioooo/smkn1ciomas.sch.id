@@ -14,11 +14,13 @@
                 </div>
             </div>
 
-            <div class="mt-6 text-gray-500">Laravel Jetstream provides a beautiful, robust starting point for your next Laravel application. Laravel is designed to help you build your application using a development environment that is simple, powerful, and enjoyable. We believe you should love expressing your creativity through programming, so we have spent time carefully crafting the Laravel ecosystem to be a breath of fresh air. We hope you love it.</div>
+            <div class="mt-6 text-gray-500">
+                Hey there! Welcome to SMKN 1 Ciomas dashboard.
+            </div>
 
             <div class="grid grid-cols-3">
                 <template v-if="$page.props.user.authenticatable_type !== null">
-                    <Gauge title="Progress" subtitle="Profile Completion" :progress="$page.props.progress" />
+                    <Gauge title="Progress" subtitle="Profile Completion" :progress="$page.props.progress" :link="$page.props.progress.percentage < 90 ? route('profile.show') : null" />
                 </template>
                 <template v-if="$page.props.user.authenticatable_type === null">
                     <Gauge title="Total" subtitle="User" :progress="$page.props.progress" :showProgress="false" />
