@@ -77,7 +77,7 @@
 </script>
 
 <template>
-    <div class="flex items-center p-2 mt-8 space-x-4 border rounded-xl">
+    <div class="flex items-center p-2 space-x-4 bg-white rounded-3xl">
         <v-chart class="w-24 h-24 aspect-square" :option="option" />
         <div>
             <p class="text-sm">{{ subtitle }}</p>

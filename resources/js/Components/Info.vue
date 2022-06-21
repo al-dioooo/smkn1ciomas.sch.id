@@ -5,8 +5,8 @@
 
 <template>
     <div>
-        <div class="p-6 bg-white border-b border-gray-200 sm:p-20">
-            <div class="flex space-x-4">
+        <div>
+            <!-- <div class="flex space-x-4">
                 <img class="object-cover w-12 h-12 rounded-full" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />
                 <div>
                     <p class="text-sm">Welcome</p>
@@ -16,7 +16,7 @@
 
             <div class="mt-6 text-gray-500">
                 Hey there! Welcome to SMKN 1 Ciomas dashboard.
-            </div>
+            </div> -->
 
             <div class="grid grid-cols-3">
                 <template v-if="$page.props.user.authenticatable_type !== null">
